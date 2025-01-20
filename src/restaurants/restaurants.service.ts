@@ -41,7 +41,7 @@ export class RestaurantsService {
           const restaurants = await this.restaurantModel
             .find({ ...keyword, ...cuisineFilter }) // Combined filtering by name and cuisine
             .limit(resPerPage)
-            .skip(skipValue)
+            .skip(skipValue*1)
             .sort({name:1});
 
 
