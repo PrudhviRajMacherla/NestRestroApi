@@ -28,10 +28,13 @@ export class RestaurantsService {
                 $options:'i'//case insensitive
             }
         }:{};
-
-        const restaurants = await this.restaurantModel.find({...keyword}).limit(resPerPage).skip(skipValue);
+        //sorting based no restro name
+        const restaurants = await this.restaurantModel.find({...keyword}).limit(resPerPage).skip(skipValue).sort({name:1});
         return restaurants;
     }
+
+
+  
 
     //create new Restaurrant 
     async create(restaurant:Restaurant): Promise<Restaurant>{
