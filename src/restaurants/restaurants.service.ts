@@ -43,7 +43,7 @@ export class RestaurantsService {
           // sorting based on name of restro
           const restaurants = await this.restaurantModel
             .find({ ...keyword, ...cuisineFilter }) // Combined filtering by name and cuisine
-            .limit(resPerPage*2)
+            .limit(resPerPage*3)
             .skip(skipValue*2)
             .sort({name:1});//feature branch
 
