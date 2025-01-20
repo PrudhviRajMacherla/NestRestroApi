@@ -28,8 +28,23 @@ export class RestaurantsService {
                 $options:'i'//case insensitive
             }
         }:{};
-        //sorting based no restro name
-        const restaurants = await this.restaurantModel.find({...keyword}).limit(resPerPage).skip(skipValue).sort({name:1});
+
+
+        const cuisineFilter = query.cuisine ? {
+            cuisine: {
+              $regex: query.cuisine,
+              $options: 'i',
+            },
+          } : {};
+        
+          // sorting based on name of restro
+          const restaurants = await this.restaurantModel
+            .find({ ...keyword, ...cuisineFilter }) // Combined filtering by name and cuisine
+            .limit(resPerPage)
+            .skip(skipValue)
+            .sort({name:1});
+
+
         return restaurants;
     }
 

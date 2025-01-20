@@ -10,10 +10,21 @@ export class RestaurantsController {
     constructor(private restaurantsServices:RestaurantsService){}
 
     // Here ExpressQuery is used for typesafety
+    // @Get()
+    // async getAllRestaurants(@Query() query:ExpressQuery): Promise<Restaurant[]>{
+    //     return this.restaurantsServices.findAll(query);
+    // }
+    
+    //developing this in feature branch
     @Get()
-    async getAllRestaurants(@Query() query:ExpressQuery): Promise<Restaurant[]>{
-        return this.restaurantsServices.findAll(query);
-    }
+async getAllRestaurants(@Query() query: ExpressQuery): Promise<Restaurant[]> {
+  // New query logic to filter restaurants by cuisine
+  const restaurants = await this.restaurantsServices.findAll({
+    ...query,
+    cuisine: query.cuisine || '', // Optional filtering by cuisine
+  });
+  return restaurants;
+}
 
     @Post()
     async createRestaurant(@Body() restaurant:CreateRestaurantDto):Promise<Restaurant>{
