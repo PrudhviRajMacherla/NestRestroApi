@@ -33,7 +33,7 @@ async getAllRestaurants(@Query() query: ExpressQuery): Promise<Restaurant[]> {
 
     @Get(':id')
     async getRestaurant(@Param('id') id:string):Promise<Restaurant>{
-        // console.log('inside controller')
+        console.log('inside controller function')
         return this.restaurantsServices.findById(id);
     }
 
