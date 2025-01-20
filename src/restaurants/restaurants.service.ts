@@ -29,7 +29,18 @@ export class RestaurantsService {
             }
         }:{};
 
-        const restaurants = await this.restaurantModel.find({...keyword}).limit(resPerPage).skip(skipValue);
+        const cuisineFilter = query.cuisine ? {
+            cuisine: {
+              $regex: query.cuisine,
+              $options: 'i',
+            },
+          } : {};
+        
+          const restaurants = await this.restaurantModel
+            .find({ ...keyword, ...cuisineFilter }) // Combined filtering by name and cuisine
+            .limit(resPerPage)
+            .skip(skipValue);
+
         return restaurants;
     }
 
