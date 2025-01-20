@@ -30,19 +30,22 @@ export class RestaurantsService {
         }:{};
 
 
+
         const cuisineFilter = query.cuisine ? {
             cuisine: {
               $regex: query.cuisine,
               $options: 'i',
             },
           } : {};
-        
+
+          
+          
           // sorting based on name of restro
           const restaurants = await this.restaurantModel
             .find({ ...keyword, ...cuisineFilter }) // Combined filtering by name and cuisine
-            .limit(resPerPage)
+            .limit(resPerPage*2)
             .skip(skipValue)
-            .sort({name:1});
+            .sort({name:1});//feature branch
 
 
         return restaurants;
